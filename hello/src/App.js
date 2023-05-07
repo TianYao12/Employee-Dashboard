@@ -7,36 +7,53 @@ function App() {
   const showEmployees = true;
   const [employees, setEmployees] = useState([
     {
+      id: 1,
       name: "Messi",
       role: "developer",
       img: "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg",
     },
     {
+      id: 2,
       name: "Ronaldo",
       role: "developer",
       img: "https://images.pexels.com/photos/3586798/pexels-photo-3586798.jpeg",
     },
     {
+      id: 3,
       name: "Neymar",
       role: "developer",
       img: "https://images.pexels.com/photos/4926674/pexels-photo-4926674.jpeg",
     },
     {
+      id: 4,
       name: "Zidane",
       role: "developer",
       img: "https://images.pexels.com/photos/4156467/pexels-photo-4156467.jpeg",
     },
     {
+      id: 5,
       name: "Pele",
       role: "developer",
       img: "https://images.pexels.com/photos/4556737/pexels-photo-4556737.jpeg",
     },
     {
+      id: 6,
       name: "Maradona",
       role: "developer",
       img: "https://images.pexels.com/photos/2218786/pexels-photo-2218786.jpeg",
     },
   ]);
+
+  function updateEmployee(id, newName, newRole) {
+    console.log("updateEmployee inside of App.js");
+    const updatedEmployees = employees.map((employee) => {
+      if (id == employee.id) {
+        return { ...employee, name: newName, role: newRole };
+      }
+      return employee;
+    });
+    setEmployees(updatedEmployees);
+  }
 
   return (
     <div className="App">
@@ -44,20 +61,21 @@ function App() {
         <>
           <div className="flex flex-wrap justify-center">
             {employees.map((employee) => {
-              console.log(uuidv4());
               return (
                 <Employee
-                  key={uuidv4()}
+                  key={employee.id}
+                  id={employee.id}
                   name={employee.name}
                   role={employee.role}
                   img={employee.img}
+                  updateEmployee={updateEmployee}
                 />
               );
             })}
           </div>
         </>
       ) : (
-        <p>not employees</p>
+        <p>For some reason the employee data is not showing up</p>
       )}
     </div>
   );
