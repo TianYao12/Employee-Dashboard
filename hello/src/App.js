@@ -1,7 +1,7 @@
 import "./index.css";
 import Employee from "./components/Employee";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import AddEmployee from "./components/AddEmployee";
 
 function App() {
   const showEmployees = true;
@@ -45,7 +45,6 @@ function App() {
   ]);
 
   function updateEmployee(id, newName, newRole) {
-    console.log("updateEmployee inside of App.js");
     const updatedEmployees = employees.map((employee) => {
       if (id == employee.id) {
         return { ...employee, name: newName, role: newRole };
@@ -54,6 +53,10 @@ function App() {
     });
     setEmployees(updatedEmployees);
   }
+
+  // function newEmployee(name, role, img) {
+  //   setEmployees[]
+  // }
 
   return (
     <div className="App">
@@ -73,6 +76,7 @@ function App() {
               );
             })}
           </div>
+          <AddEmployee />
         </>
       ) : (
         <p>For some reason the employee data is not showing up</p>
