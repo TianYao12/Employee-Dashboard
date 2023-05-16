@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 function AddEmployee(props) {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
-  const [image, setImage] = useState("");
+  const [img, setImg] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,7 +32,10 @@ function AddEmployee(props) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              props.updateEmployee(props.id, name, role);
+              setName('');
+              setRole('');
+              setImg('');
+              props.newEmployee(name, role, img);
             }}
             id="editmodal"
             className="w-full max-w-sm"
@@ -90,8 +93,8 @@ function AddEmployee(props) {
                   id="image"
                   placeholder="image.jpg"
                   type="text"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  value={img}
+                  onChange={(e) => setImg(e.target.value)}
                 />
               </div>
             </div>
