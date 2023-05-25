@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import NotFound from "../components/NotFound";
+import DefinitionSearch from "../components/DefinitionSearch";
 
 export default function Definition() {
   const [word, setWord] = useState([]);
+  const [notFound, setNotFound] = useState(false);
   let { search } = useParams();
   const navigate = useNavigate();
 
@@ -11,7 +14,10 @@ export default function Definition() {
     fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + search)
       .then((response) => {
         if (response.status === 404) {
-          navigate("/404");
+          setNotFound(true);
+        }
+        else if(response.status === 401) {
+          navigate('/login')
         }
         return response.json();
       })
@@ -20,6 +26,14 @@ export default function Definition() {
       });
   }, []);
 
+  if (notFound === true) {
+    return (
+      <>
+        <NotFound />
+        <Link to="/dictionary">Search another one boi</Link>
+      </>
+    );
+  }
   return (
     <>
       {word.length > 0 ? (
@@ -33,6 +47,8 @@ export default function Definition() {
               </p>
             );
           })}
+          <p>Search again:</p>
+          <DefinitionSearch />
         </>
       ) : null}
     </>
