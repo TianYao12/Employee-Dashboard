@@ -11,13 +11,13 @@ export default function Definition() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + search)
+    const url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + search;
+    fetch(url)
       .then((response) => {
         if (response.status === 404) {
           setNotFound(true);
-        }
-        else if(response.status === 401) {
-          navigate('/login')
+        } else if (response.status === 401) {
+          navigate("/login");
         }
         return response.json();
       })
