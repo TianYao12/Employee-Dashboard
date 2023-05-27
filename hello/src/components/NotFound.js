@@ -1,3 +1,3 @@
-export default function NotFound() {
-  return <p>The page was not found</p>;
+export default function NotFound(props) {
+  return <p>The customer with an id of {props.name} was not found</p>;
 }
